@@ -4,7 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!--扫描业务类和mapper类：被扫描的类都会交给spring托管-->
-    <context:component-scan base-package="业务层的实现类,和mapper的类都可以"/>
+    <context:component-scan base-package="cn.gezhi.service,cn.gezhi.dao"/>
     <!--加载属性文件-->
     <context:property-placeholder location="classpath:"/>
     <!--配置数据源-->
@@ -44,7 +44,7 @@
         <!--使用德鲁伊配置的数据源作为session工厂的数据源-->
     </bean>
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="cn.gezhi.mapper"/>
+        <property name="basePackage" value="cn.gezhi.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 </beans>
