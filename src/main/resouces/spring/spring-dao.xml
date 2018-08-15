@@ -6,7 +6,7 @@
     <!--扫描业务类和mapper类：被扫描的类都会交给spring托管-->
     <context:component-scan base-package="cn.gezhi.service,cn.gezhi.dao"/>
     <!--加载属性文件-->
-    <context:property-placeholder location="classpath:"/>
+    <context:property-placeholder location="classpath:properties/jdbc.properties"/>
     <!--配置数据源-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
           init-method="init" destroy-method="close">
