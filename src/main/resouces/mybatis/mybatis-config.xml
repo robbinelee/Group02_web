@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="cn.gezhi.entity"/>
+        <package name="cn.gezhi.po"/>
     </typeAliases>
 
     <mappers>
-        <package name="cn.gezhi.mapper"/>
+        <package name="cn.gezhi.dao"/>
     </mappers>
 </configuration>
