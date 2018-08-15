@@ -21,4 +21,27 @@
     <servlet-name>springmvc</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  <!--加载配置文件-->
+  <context-param>
+    <param-name>log4jConfiguration</param-name>
+    <!--<param-value>classpath:log4j2.xml文件地址</param-value>-->
+    <param-value>classpath:log4j2.xml</param-value>  <!--加载resources下的log4j2.xml的文件路径-->
+  </context-param>
+  <!--配置监听器-->
+  <listener>
+    <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class><!--监听事件的问题看包-->
+  </listener>
+  <!--配置拦截-->
+  <filter>
+    <filter-name>log4jServletFilter</filter-name>
+    <filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>log4jServletFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
 </web-app>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF" monitorInterval="1800">
+    <!--先定义所有的appender-->
+    <Appenders>
+        <!--这个输出控制台的配置-->
+        <!--名字及显示的方式-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" />
+            <!--输出日志的格式-->
+            <PatternLayout pattern="%d{HH:mm:ss.SSS}--- %-5level %class{36} %L %M - %msg%xEx%n" />
+        </Console>
+        <!--
+            %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间
+            %p : 日志输出格式
+            %c : logger的名称
+            %m : 日志内容，即 logger.info("message")
+            %n : 换行符
+            %C : Java类名
+            %L : 日志输出所在行数
+            %M : 日志输出所在方法名
+            hostName : 本地机器名
+            hostAddress : 本地ip地址
+         -->
+        <!--日志输出到文件-->
+        <File name="log" fileName="infor/test.log" append="true">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS}--- %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </File>
+        <!--<File name="log" fileName="${web:rootDir}/debug/test.log" append="true">-->
+            <!--<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>-->
+        <!--</File>-->
+
+        <RollingFile name="running-log" fileName="test.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz"
+                     immediateFlush="true">
+            <PatternLayout
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS}*** %level [%thread][%file:%line] - %msg%n" />
+            <Policies>
+                <!--日志滚动更新时间-->
+                <!-- <TimeBasedTriggeringPolicy modulate="true" interval="24"/> 这个表示按天存储日志，默认是一小时-->
+                <TimeBasedTriggeringPolicy />
+                <!-- 日志文件大小 -->
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <!-- <Logger name="com.cssweb.test.app" level="trace" additivity="true">
+            <AppenderRef ref="running-log" /> </Logger> -->
+        <Root level="debug">
+            <!-- 这里是输入到文件，很重要-->
+            <AppenderRef ref="log" />
+            <!-- 这里是输入到控制台,项目上线时注释下面代码-->
+            <AppenderRef ref="Console" />
+        </Root>
+        <!--&lt;!&ndash;自定义&ndash;&gt;-->
+        <!--<Root level="all">-->
+            <!--&lt;!&ndash; 这里是输入到文件，很重要&ndash;&gt;-->
+            <!--<AppenderRef ref="log" level="debug"/>-->
+            <!--&lt;!&ndash; 这里是输入到控制台,项目上线时注释下面代码&ndash;&gt;-->
+            <!--<AppenderRef ref="Console" />-->
+        <!--</Root>-->
+    </Loggers>
+</Configuration>
